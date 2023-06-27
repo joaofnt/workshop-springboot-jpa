@@ -1,14 +1,26 @@
 package com.educandoweb.curso.entidades;
 
 import java.io.Serializable;
+
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+
+@Entity
+@Table(name = "pessoa")
 public class User implements Serializable{
 	
 
 	private static final long serialVersionUID = 1L;
-		
-	private Long id;
+	
+	@Id
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	private Long IdPessoa;
 	private String nome;
 	private String email;
 	private String telefone;
@@ -18,7 +30,7 @@ public class User implements Serializable{
 	
 	public User(Long id, String nome, String email, String telefone, String senha) {
 		super();
-		this.id = id;
+		this.IdPessoa = id;
 		this.nome = nome;
 		this.email = email;
 		this.telefone = telefone;
@@ -26,11 +38,11 @@ public class User implements Serializable{
 	}
 
 	public Long getId() {
-		return id;
+		return IdPessoa;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		this.IdPessoa = id;
 	}
 
 	public String getNome() {
@@ -67,7 +79,7 @@ public class User implements Serializable{
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(IdPessoa);
 	}
 
 	@Override
@@ -79,7 +91,7 @@ public class User implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(id, other.id);
+		return Objects.equals(IdPessoa, other.IdPessoa);
 	}
 	
 	
