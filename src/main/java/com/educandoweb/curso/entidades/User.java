@@ -1,33 +1,40 @@
 package com.educandoweb.curso.entidades;
 
 import java.io.Serializable;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-
 @Entity
-@Table(name = "pessoa")
-public class User implements Serializable{
-	
+@Table(name = "tb_pessoa")
+public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long IdPessoa;
 	private String nome;
 	private String email;
 	private String telefone;
 	private String senha;
-	
-	public User() {}
-	
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "cliente")
+	private List<Order> orders = new ArrayList<Order>();
+
+	public User() {
+	}
+
 	public User(Long id, String nome, String email, String telefone, String senha) {
 		super();
 		this.IdPessoa = id;
@@ -35,6 +42,14 @@ public class User implements Serializable{
 		this.email = email;
 		this.telefone = telefone;
 		this.senha = senha;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 
 	public Long getId() {
@@ -93,6 +108,5 @@ public class User implements Serializable{
 		User other = (User) obj;
 		return Objects.equals(IdPessoa, other.IdPessoa);
 	}
-	
-	
+
 }
